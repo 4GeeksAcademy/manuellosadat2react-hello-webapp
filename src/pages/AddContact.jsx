@@ -18,7 +18,7 @@ export const AddContact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form); // aquí luego va la API
+    console.log(form); 
   };
 
   return (

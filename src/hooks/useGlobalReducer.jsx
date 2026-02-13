@@ -1,15 +1,27 @@
-import React, { createContext, useReducer } from "react";
+import { useContext, useReducer, createContext } from "react";
 import storeReducer, { initialStore } from "../store";
 
-// Crear el provider
-export const Context = createContext(null);
+const StoreContext = createContext();
 
-export const StoreProvider = ({ children }) => {
+export function StoreProvider({ children }) {
   const [store, dispatch] = useReducer(storeReducer, initialStore());
-  return (
-    <Context.Provider value={{ store, dispatch }}>
-      {children}
-    </Context.Provider>
-  );
-};
 
+  const actions = {
+    deleteContact: async (id) => {
+      dispatch({
+        type: "delete_contact",
+        payload: id
+      });
+    }
+  };
+
+  return (
+    <StoreContext.Provider value={{ store, actions }}>
+      {children}
+    </StoreContext.Provider>
+  );
+}
+
+export default function useGlobalReducer() {
+  return useContext(StoreContext);
+}
