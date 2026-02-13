@@ -1,19 +1,15 @@
+import { useContext } from "react";
+import { Context } from "../hooks/useGlobalReducer";
 import ContactCard from "../components/ContactCard";
 
-const contact = {
-  name: "Mike Anamendolla",
-  address: "5842 Hillcrest Rd",
-  phone: "(870) 288-4149",
-  email: "mike.ana@example.com",
-  avatar: "https://i.pravatar.cc/150?img=3"
-};
-
 export const Home = () => {
+  const { store } = useContext(Context);
+
   return (
     <div className="container mt-4">
-      <ContactCard contact={contact} />
-      <ContactCard contact={contact} />
-      <ContactCard contact={contact} />
+      {store.todos.map((contact) => (
+        <ContactCard key={contact.id} contact={contact} />
+      ))}
     </div>
   );
 };

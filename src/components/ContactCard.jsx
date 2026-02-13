@@ -1,13 +1,19 @@
 import { Pencil, Trash } from "react-bootstrap-icons";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../hooks/useGlobalReducer";
 
 const ContactCard = ({ contact }) => {
   const [showModal, setShowModal] = useState(false);
+  const { store, dispatch } = useContext(Context);
 
   const handleDelete = () => {
-    console.log("Deleting:", contact.name);
-    setShowModal(false);
+    dispatch({
+    type: "delete_contact",
+    payload: { id: contact.id }
+  });
+
+  setShowModal(false);
   };
 
   return (
