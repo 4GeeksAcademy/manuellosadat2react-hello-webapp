@@ -1,16 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import "bootstrap/dist/css/bootstrap.min.css";
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import Layout from "./pages/Layout";
+import { StoreProvider } from "./hooks/useGlobalReducer";
 
-import { RouterProvider } from "react-router-dom";
-import { router } from "./routes";
-import { StoreProvider } from './hooks/useGlobalReducer';
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <StoreProvider>
-      <RouterProvider router={router} />
-    </StoreProvider>
-  </React.StrictMode>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <StoreProvider>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
+  </StoreProvider>
 );

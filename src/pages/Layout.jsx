@@ -1,17 +1,10 @@
-import { Outlet } from "react-router-dom";
-import ScrollToTop from "../components/ScrollToTop";
-import { Navbar } from "../components/Navbar";
-import { Footer } from "../components/Footer";
+import { StoreProvider } from "../hooks/useGlobalReducer";
 
-export const Layout = () => {
-  return (
-    <ScrollToTop>
-      <Navbar />
-      
-      <main className="container my-4">
-        <Outlet />
-      </main>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <StoreProvider>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
+  </StoreProvider>
+);
 
-    </ScrollToTop>
-  );
-};
