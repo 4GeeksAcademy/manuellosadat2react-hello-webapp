@@ -34,7 +34,7 @@ export const AddContact = () => {
       }
     );
 
-    actions.getContacts();
+    await actions.getContacts();
     navigate("/");
   };
 

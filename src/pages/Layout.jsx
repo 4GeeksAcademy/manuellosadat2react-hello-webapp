@@ -1,10 +1,14 @@
-import { StoreProvider } from "../hooks/useGlobalReducer";
+import { Outlet } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <StoreProvider>
-    <BrowserRouter>
-      <Layout />
-    </BrowserRouter>
-  </StoreProvider>
-);
+export const Layout = () => {
+  return (
+    <>
+      <Navbar />
+      <div className="container mt-4">
+        <Outlet />
+      </div>
+    </>
+  );
+};
 
