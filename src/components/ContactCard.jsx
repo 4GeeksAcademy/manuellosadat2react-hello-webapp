@@ -9,38 +9,42 @@ const ContactCard = ({ contact }) => {
 
   const handleDelete = async () => {
     try {
+      // 🔥 BORRAR EN LA API
       await fetch(
-        `https://playground.4geeks.com/contact/${contact.id}`,
+        `https://playground.4geeks.com/contact/agendas/eduardo/contacts/${contact.id}`,
         {
-          method: "DELETE"
+          method: "DELETE",
         }
       );
 
+      // 🔥 BORRAR EN EL STORE
       dispatch({
         type: "delete_contact",
-        payload: contact.id
+        payload: contact.id,
       });
 
-      setShowModal(false);
-
     } catch (error) {
-      console.log(error);
+      console.error("Error deleting contact:", error);
     }
+
+    setShowModal(false);
   };
 
   return (
     <>
       <div className="card mb-3 shadow-sm">
         <div className="card-body d-flex align-items-center">
+
           <img
-            src="https://i.pravatar.cc/150"
+            src={contact.avatar || "https://i.pravatar.cc/150"}
             alt={contact.name}
             className="rounded-circle me-3"
             width="64"
+            height="64"
           />
 
           <div className="flex-grow-1">
-            <h5>{contact.name}</h5>
+            <h5 className="mb-1">{contact.name}</h5>
             <div className="text-muted small">
               <div>📍 {contact.address}</div>
               <div>📞 {contact.phone}</div>
@@ -66,40 +70,40 @@ const ContactCard = ({ contact }) => {
       </div>
 
       {showModal && (
-        <>
-          <div className="modal fade show d-block">
-            <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content">
+        <div className="modal fade show d-block">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
 
-                <div className="modal-header">
-                  <h5>Are you sure?</h5>
-                </div>
-
-                <p className="m-2">If you delete this thing the entire universe will go down!</p>
-
-                <div className="modal-footer">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    className="btn btn-secondary"
-                    onClick={handleDelete}
-                  >
-                    Delete
-                  </button>
-                </div>
-
+              <div className="modal-header">
+                <h5>Are you sure?</h5>
+                <button
+                  className="btn-close"
+                  onClick={() => setShowModal(false)}
+                />
               </div>
+
+              <div className="modal-footer">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  className="btn btn-success"
+                  onClick={handleDelete}
+                >
+                  Yes baby!
+                </button>
+              </div>
+
             </div>
           </div>
-
-          <div className="modal-backdrop fade show"></div>
-        </>
+        </div>
       )}
+
+      {showModal && <div className="modal-backdrop fade show"></div>}
     </>
   );
 };
