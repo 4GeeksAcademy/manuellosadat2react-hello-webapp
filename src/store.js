@@ -1,11 +1,9 @@
-// Estado inicial global
 export const initialStore = () => {
   return {
     contacts: []
   };
 };
 
-// Reducer global
 export default function storeReducer(store, action = {}) {
   switch (action.type) {
 
@@ -15,7 +13,21 @@ export default function storeReducer(store, action = {}) {
         contacts: action.payload
       };
 
+    case "add_contact":
+      return {
+        ...store,
+        contacts: [...store.contacts, action.payload]
+      };
+
+    case "delete_contact":
+      return {
+        ...store,
+        contacts: store.contacts.filter(
+          contact => contact.id !== action.payload
+        )
+      };
+
     default:
-      return store;
+      throw Error("Unknown action.");
   }
 }

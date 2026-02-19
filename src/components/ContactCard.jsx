@@ -5,28 +5,42 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const ContactCard = ({ contact }) => {
   const [showModal, setShowModal] = useState(false);
-  const { actions } = useGlobalReducer();
+  const { dispatch } = useGlobalReducer();
 
-  const handleDelete = () => {
-    actions.deleteContact(contact.id);
-    setShowModal(false);
+  const handleDelete = async () => {
+    try {
+      await fetch(
+        `https://playground.4geeks.com/contact/${contact.id}`,
+        {
+          method: "DELETE"
+        }
+      );
+
+      dispatch({
+        type: "delete_contact",
+        payload: contact.id
+      });
+
+      setShowModal(false);
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
       <div className="card mb-3 shadow-sm">
         <div className="card-body d-flex align-items-center">
-
           <img
-            src={contact.avatar}
+            src="https://i.pravatar.cc/150"
             alt={contact.name}
             className="rounded-circle me-3"
             width="64"
-            height="64"
           />
 
           <div className="flex-grow-1">
-            <h5 className="mb-1">{contact.name}</h5>
+            <h5>{contact.name}</h5>
             <div className="text-muted small">
               <div>📍 {contact.address}</div>
               <div>📞 {contact.phone}</div>
@@ -59,11 +73,9 @@ const ContactCard = ({ contact }) => {
 
                 <div className="modal-header">
                   <h5>Are you sure?</h5>
-                  <button
-                    className="btn-close"
-                    onClick={() => setShowModal(false)}
-                  />
                 </div>
+
+                <p className="m-2">If you delete this thing the entire universe will go down!</p>
 
                 <div className="modal-footer">
                   <button
@@ -74,10 +86,10 @@ const ContactCard = ({ contact }) => {
                   </button>
 
                   <button
-                    className="btn btn-success"
+                    className="btn btn-secondary"
                     onClick={handleDelete}
                   >
-                    Yes baby!
+                    Delete
                   </button>
                 </div>
 

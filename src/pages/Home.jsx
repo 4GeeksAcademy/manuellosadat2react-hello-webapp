@@ -1,22 +1,38 @@
 import { useEffect } from "react";
-import useGlobalReducer from "../hooks/useGlobalReducer";
 import ContactCard from "../components/ContactCard";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Home = () => {
-  const { store, actions } = useGlobalReducer();
+  const { store, dispatch } = useGlobalReducer();
+
+  const getContacts = async () => {
+    try {
+      const resp = await fetch(
+        "https://playground.4geeks.com/contact/agendas/eduardo"
+      );
+      const data = await resp.json();
+
+      dispatch({
+        type: "set_contacts",
+        payload: data.contacts
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    actions.getContacts();
+    getContacts();
   }, []);
 
   return (
     <div className="container mt-4">
-      {store.contacts?.map(contact => (
+      {store.contacts.map(contact => (
         <ContactCard key={contact.id} contact={contact} />
       ))}
     </div>
   );
 };
-
 
 
