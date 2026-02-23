@@ -14,17 +14,16 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>}>
 
-      {/* Home */}
       <Route index element={<Home />} />
 
-      {/* Add Contact */}
       <Route path="add" element={<AddContact />} />
 
-      {/* Other routes */}
+      {/* 🔥 NUEVA RUTA EDIT */}
+      <Route path="edit/:id" element={<AddContact />} />
+
       <Route path="single/:theId" element={<Single />} />
       <Route path="demo" element={<Demo />} />
 
     </Route>
   )
 );
- 

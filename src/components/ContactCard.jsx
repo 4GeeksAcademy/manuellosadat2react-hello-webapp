@@ -9,7 +9,6 @@ const ContactCard = ({ contact }) => {
 
   const handleDelete = async () => {
     try {
-      // 🔥 BORRAR EN LA API
       await fetch(
         `https://playground.4geeks.com/contact/agendas/eduardo/contacts/${contact.id}`,
         {
@@ -17,7 +16,6 @@ const ContactCard = ({ contact }) => {
         }
       );
 
-      // 🔥 BORRAR EN EL STORE
       dispatch({
         type: "delete_contact",
         payload: contact.id,
@@ -53,7 +51,9 @@ const ContactCard = ({ contact }) => {
           </div>
 
           <div className="ms-3 d-flex gap-2">
-            <Link to="/add">
+
+            {/* 🔥 EDITAR */}
+            <Link to={`/edit/${contact.id}`}>
               <button className="btn btn-outline-secondary btn-sm">
                 <Pencil />
               </button>
